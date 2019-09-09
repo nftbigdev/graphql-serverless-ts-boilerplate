@@ -1,0 +1,23 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - cp .npmrc.example .npmrc
+      - yarn install
+  pre_build:
+    commands:
+      - echo "pre build phase"
+      - node --version
+      - npm --version
+      - yarn --version
+      - yarn lint
+      - yarn test
+  build:
+    commands:
+      - echo "build phase"
+      - yarn build
+  post_build:
+    commands:
+      - echo "post-build phase"
+      - yarn serverless deploy --force --verbose
